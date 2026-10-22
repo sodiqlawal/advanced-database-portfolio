@@ -8,6 +8,7 @@ This activity designs the relational database for RentMadeEasy (see the [main RE
 |---|---|
 | `01_schema.sql` | Creates the 10 tables, keys, constraints and the application check trigger |
 | `02_seed.sql` | Inserts sample data: 8 customers, 6 applications, 4 loans and their repayments |
+| `03_constraint_tests.sql` | Tries to insert invalid data to show each constraint and the trigger rejecting it |
 
 ## ER diagram
 
@@ -222,3 +223,34 @@ It returns no rows, meaning every balance matches its history.
 **2. `loans.monthly_interest_rate`**
 
 This looks like a copy of `loan_products.monthly_interest_rate`, but it is a different fact: the rate **agreed when the loan was approved**. If RentMadeEasy later raises the Rent Quick rate, existing loans must keep their original rate. So this is not a transitive dependency, and storing it is correct.
+
+## Keys and constraints
+
+`03_constraint_tests.sql` tries to break each rule on purpose. Every test except the last should fail with an `ERROR`, and the data is left unchanged.
+
+| Test | Rule being tested | Type | Result |
+|---|---|---|---|
+| 1 | Two customers cannot share an email | `UNIQUE` | Rejected: `customers_email_key` |
+| 2 | A customer cannot refer themselves | `CHECK` | Rejected: `customers_check` |
+| 3 | A customer cannot have a second wallet | `UNIQUE` (one-to-one) | Rejected: `wallets_customer_id_key` |
+| 4 | A wallet cannot go below zero | `CHECK` | Rejected: `wallets_balance_check` |
+| 5 | The same payment reference cannot be recorded twice | `UNIQUE` | Rejected: `wallet_transactions_reference_key` |
+| 6 | Transaction type must be CREDIT or DEBIT | `CHECK` | Rejected: `wallet_transactions_transaction_type_check` |
+| 7 | Cannot apply for a property that does not exist | `FOREIGN KEY` | Rejected: `loan_applications_property_id_fkey` |
+| 8 | Cannot delete a customer who has a wallet | `FOREIGN KEY` | Rejected: `wallets_customer_id_fkey` |
+| 9 | An application cannot become two loans | `UNIQUE` (one-to-one) | Rejected: `loans_application_id_key` |
+| 10 | A loan cannot have two instalments with the same number | `UNIQUE` (composite) | Rejected: `repayment_schedules_loan_id_installment_number_key` |
+| 11 | Amount must be within the product limits | Trigger | Rejected: "Amount must be between 100000.00 and 1000000.00 for Rent Quick" |
+| 12 | Tenure cannot be longer than the product allows | Trigger | Rejected: "Maximum tenure for Rent Quick is 6 months" |
+| 13 | Amount cannot be more than the annual rent | Trigger | Rejected: "Amount cannot be more than the annual rent (650000.00)" |
+| 14 | A valid application is accepted | Trigger | Accepted, then undone with `ROLLBACK` |
+
+**Why test 14 matters:** a trigger that rejected everything would also pass tests 11–13. Test 14 shows it only rejects invalid applications.
+
+**Something noticed while testing:** the valid application in test 14 was given `application_id` 11, not 7. Failed inserts still use up numbers from the ID sequence, and `ROLLBACK` does not give them back. PostgreSQL does this on purpose, so that two sessions inserting at once never have to wait for each other to get an ID. It means IDs are unique but can have gaps, so they should never be used to count rows.
+
+### How to run
+
+```sql
+\i /portfolio/portfolio-1-database-design/03_constraint_tests.sql
+```
