@@ -1,0 +1,19 @@
+# RentMadeEasy - local database environment for the MIT 8103 portfolio.
+# Start:  docker compose up -d
+# Connect: docker exec -it rme-postgres psql -U rme -d rentmadeeasy
+services:
+  postgres:
+    image: postgres:16
+    container_name: rme-postgres
+    environment:
+      POSTGRES_USER: rme
+      POSTGRES_PASSWORD: rme_dev_password
+      POSTGRES_DB: rentmadeeasy
+    ports:
+      - "5433:5432" # 5433 on the host so it never clashes with a local Postgres on 5432
+    volumes:
+      - rme_pgdata:/var/lib/postgresql/data
+      - ./:/portfolio:ro # lets psql inside the container run the SQL files with \i
+
+volumes:
+  rme_pgdata:
