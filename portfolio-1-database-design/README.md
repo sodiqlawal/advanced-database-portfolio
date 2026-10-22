@@ -254,3 +254,34 @@ This looks like a copy of `loan_products.monthly_interest_rate`, but it is a dif
 ```sql
 \i /portfolio/portfolio-1-database-design/03_constraint_tests.sql
 ```
+
+## Testing and evidence
+
+**How the design was tested:**
+1. The schema and sample data were loaded into a fresh PostgreSQL 16 database running in Docker, with no errors.
+2. Every wallet balance was compared with its transaction history using the query in the normalisation section. No differences were found.
+3. All 14 constraint tests behaved as expected: 13 invalid inserts were rejected by the right constraint or trigger, and the valid application was accepted.
+
+**Screenshots:**
+
+| # | What it shows |
+|---|---|
+| 01 | PostgreSQL running in Docker |
+| 02 | Schema created from `01_schema.sql` |
+| 03 | The 10 tables listed with `\dt` |
+| 04 | Structure of `loan_applications`, showing its keys, constraints and trigger |
+| 05 | Sample data loaded from `02_seed.sql` |
+| 06 | Sample data, including Ibrahim's overdue instalment |
+| 07 | ER diagram exported from mermaid.live |
+| 08 | Wallet balances matching their transaction history |
+| 09 | Constraint tests rejecting invalid data |
+
+![PostgreSQL running in Docker](screenshots/01-docker-running.png)
+![Schema created](screenshots/02-schema-created.png)
+![Tables list](screenshots/03-tables-list.png)
+![loan_applications structure](screenshots/04-table-structure.png)
+![Seed loaded](screenshots/05-seed-loaded.png)
+![Sample data](screenshots/06-sample-data.png)
+![ER diagram](screenshots/07-er-diagram.png)
+![Balance check](screenshots/08-balance-check.png)
+![Constraint tests](screenshots/09-constraint-tests.png)

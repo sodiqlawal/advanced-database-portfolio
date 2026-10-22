@@ -58,8 +58,12 @@ docker compose up -d
 docker exec -it rme-postgres psql -U rme -d rentmadeeasy
 ```
 
-Inside `psql`, load the schema:
+Inside `psql`, create the tables, load the sample data and run the constraint tests:
 
 ```sql
 \i /portfolio/portfolio-1-database-design/01_schema.sql
+\i /portfolio/portfolio-1-database-design/02_seed.sql
+\i /portfolio/portfolio-1-database-design/03_constraint_tests.sql
 ```
+
+Running `01_schema.sql` again deletes everything and starts fresh.
