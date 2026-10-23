@@ -33,7 +33,7 @@
 |---|---|
 | [portfolio-1-database-design](portfolio-1-database-design/) | Database design and modelling |
 | [portfolio-2-query-optimisation](portfolio-2-query-optimisation/) | Query processing and optimisation |
-| portfolio-3-transactions-concurrency | Transactions and concurrency |
+| [portfolio-3-transactions-concurrency](portfolio-3-transactions-concurrency/) | Transactions and concurrency |
 | portfolio-4-nosql | NoSQL and advanced data models |
 | portfolio-5-distributed-cloud | Distributed and cloud databases |
 
