@@ -15,5 +15,18 @@ services:
       - rme_pgdata:/var/lib/postgresql/data
       - ./:/portfolio:ro # lets psql inside the container run the SQL files with \i
 
+  # MongoDB for Portfolio 4.
+  # Connect: docker exec -it rme-mongo mongosh rentmadeeasy
+  mongo:
+    image: mongo:7.0
+    container_name: rme-mongo
+    command: ["--replSet", "rs0", "--bind_ip_all"] # a one-node replica set, needed for multi-document transactions
+    ports:
+      - "27018:27017" # 27018 on the host so it never clashes with a local MongoDB on 27017
+    volumes:
+      - rme_mongodata:/data/db
+      - ./:/portfolio:ro # lets mongosh inside the container run the files with load()
+
 volumes:
   rme_pgdata:
+  rme_mongodata:
