@@ -35,7 +35,7 @@
 | [portfolio-2-query-optimisation](portfolio-2-query-optimisation/) | Query processing and optimisation |
 | [portfolio-3-transactions-concurrency](portfolio-3-transactions-concurrency/) | Transactions and concurrency |
 | [portfolio-4-nosql](portfolio-4-nosql/) | NoSQL and advanced data models |
-| portfolio-5-distributed-cloud | Distributed and cloud databases |
+| [portfolio-5-distributed-cloud](portfolio-5-distributed-cloud/) | Distributed and cloud databases |
 
 ## Conventions
 
@@ -73,3 +73,5 @@ Running `01_schema.sql` again deletes everything and starts fresh.
 ```bash
 docker exec -it rme-mongo mongosh rentmadeeasy
 ```
+
+Portfolio 5 runs three more MongoDB servers from its own compose file. See [its README](portfolio-5-distributed-cloud/README.md) for how to start them.
