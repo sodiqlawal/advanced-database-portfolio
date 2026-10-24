@@ -34,7 +34,7 @@
 | [portfolio-1-database-design](portfolio-1-database-design/) | Database design and modelling |
 | [portfolio-2-query-optimisation](portfolio-2-query-optimisation/) | Query processing and optimisation |
 | [portfolio-3-transactions-concurrency](portfolio-3-transactions-concurrency/) | Transactions and concurrency |
-| portfolio-4-nosql | NoSQL and advanced data models |
+| [portfolio-4-nosql](portfolio-4-nosql/) | NoSQL and advanced data models |
 | portfolio-5-distributed-cloud | Distributed and cloud databases |
 
 ## Conventions
@@ -67,3 +67,9 @@ Inside `psql`, create the tables, load the sample data and run the constraint te
 ```
 
 Running `01_schema.sql` again deletes everything and starts fresh.
+
+`docker compose up -d` also starts MongoDB for Portfolio 4. Connect to it with:
+
+```bash
+docker exec -it rme-mongo mongosh rentmadeeasy
+```
