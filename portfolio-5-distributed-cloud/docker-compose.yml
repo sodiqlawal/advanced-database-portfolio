@@ -1,0 +1,24 @@
+# RentMadeEasy - three-node MongoDB replica set for Portfolio 5.
+# Each container is a separate MongoDB server, standing in for a server in a
+# different data centre. They talk to each other by container name.
+# Start (from the main portfolio folder):
+#   docker compose -f portfolio-5-distributed-cloud/docker-compose.yml up -d
+x-node: &node
+  image: mongo:7.0
+  command: ["--replSet", "rs5", "--bind_ip_all"]
+  volumes:
+    - ..:/portfolio:ro # lets mongosh inside the containers run the files with load()
+
+services:
+  node1:
+    <<: *node
+    container_name: rme-node1
+    hostname: rme-node1
+  node2:
+    <<: *node
+    container_name: rme-node2
+    hostname: rme-node2
+  node3:
+    <<: *node
+    container_name: rme-node3
+    hostname: rme-node3
