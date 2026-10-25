@@ -102,7 +102,7 @@ These experiments changed how I approach backend engineering. In production, I w
 | | |
 |---|---|
 | **AI tool used** | Claude |
-| **What it was used for** | Generating sample data for seeding, also help fix grammatical errors and rephrase sentences to make them sound more professional etc |
+| **What it was used for** | Generating sample data for seeding, drafting the README files and this documentation and to help fix grammatical errors and rephrase sentences to make them sound more professional etc |
 | **How I reviewed and verified the output** | I ran every script myself on my own Docker databases and took the screenshots from those runs, so all the results in this portfolio come from my runs. I checked that each result matched what the README says, asked for changes where something was unclear or wrong, and made the decisions about what to include. I can explain every file, and I am practising each part hands-on to make sure I understand it fully. |
 
 The case study, the choice of examples and the final content are my responsibility, as the brief requires.
