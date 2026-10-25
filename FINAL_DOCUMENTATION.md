@@ -3,7 +3,7 @@
 **Student:** Sodiq Lawal
 **Matriculation number:** 2026/A/MIT/0386
 **Session:** 2026/2027, First Semester
-**GitHub repository:** [https://github.com/sodiqlawal/advanced-database-portfolio]
+**GitHub repository:** https://github.com/sodiqlawal/advanced-database-portfolio
 
 ## 1. Selected organisation: RentMadeEasy
 
